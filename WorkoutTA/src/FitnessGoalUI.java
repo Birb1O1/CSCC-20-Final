@@ -36,7 +36,7 @@ public class FitnessGoalUI extends JPanel {
         lose.setBounds(X, Y, W, H);
         add(lose);
 
-        JToggleButton gain = createGoalButton("Gain Weight", grayBtn);
+        JToggleButton gain = createGoalButton("Body Composition", grayBtn);
         gain.setBounds(X, Y + 60, W, H);
         add(gain);
 
@@ -44,7 +44,7 @@ public class FitnessGoalUI extends JPanel {
         build.setBounds(X, Y + 120, W, H);
         add(build);
 
-        JToggleButton end = createGoalButton("Endurance", grayBtn);
+        JToggleButton end = createGoalButton("Cardio", grayBtn);
         end.setBounds(X, Y + 180, W, H);
         add(end);
 
@@ -68,11 +68,11 @@ public class FitnessGoalUI extends JPanel {
             if (lose.isSelected()) {
                 nav.goToLoseWeight();
             } else if (gain.isSelected()) {
-                nav.goToGainWeight();
+                nav.goToBodyComp();
             } else if (build.isSelected()) {
                 nav.goToBuildMuscle();
             } else if (end.isSelected()) {
-                nav.goToEndurance();
+                nav.goToCardio();
             } 
             else 
             {

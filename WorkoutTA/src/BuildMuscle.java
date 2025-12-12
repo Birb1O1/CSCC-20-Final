@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.*;
 
 public class BuildMuscle extends JPanel {
@@ -7,84 +8,79 @@ public class BuildMuscle extends JPanel {
 
     public BuildMuscle(navigationService nav) {
         this.nav = nav;
-        createUI();
-    }
 
-    private void createUI() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBackground(new Color(15, 15, 15));
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setLayout(new BorderLayout());
+        setBackground(new Color(20, 20, 20));
 
-        JLabel title = new JLabel("Muscle Workouts");
+        // Title
+        JLabel title = new JLabel("Muscle Gain Guide", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 36));
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, 22));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+        add(title, BorderLayout.NORTH);
 
-        add(title);
-        add(Box.createVerticalStrut(10));
+        // Table columns
+        String[] columns = { "Exercise", "Sets × Reps", "Estimated Calories Burned" };
 
-        // Add workout cards
-        add(createWorkoutCard("Bench Press", "Intense", "/bench-press-800.jpg"));
-        add(Box.createVerticalStrut(15));
-        add(createWorkoutCard("Triceps Pushdowns", "Moderate", "/ATriceps.png"));
-        add(Box.createVerticalStrut(15));
-        add(createWorkoutCard("Deadlift", "Beginner", "/Adeadlift.png"));
-        add(Box.createVerticalGlue());
+        Object[][] data = {
+                {"Squats", "4 × 8–12", "90–120 kcal"},
+                {"Deadlifts", "4 × 6–10", "100–140 kcal"},
+                {"Bench Press", "4 × 8–12", "70–100 kcal"},
+                {"Pull-Ups / Chin-Ups", "3 × 6–12", "50–80 kcal"},
+                {"Overhead Press", "4 × 8–12", "60–90 kcal"},
+                {"Barbell / Dumbbell Rows", "4 × 8–12", "70–100 kcal"},
+                {"Leg Press", "4 × 10–15", "80–110 kcal"},
+                {"Bicep Curls & Tricep Extensions", "3 × 12–15", "40–60 kcal"}
+        };
 
-        // Choose Workout button
-        JButton unlockButton = new JButton("Choose Workout");
-        unlockButton.setPreferredSize(new Dimension(300, 50));
-        unlockButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        unlockButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        unlockButton.setBackground(new Color(0, 122, 255));
-        unlockButton.setForeground(Color.WHITE);
-        unlockButton.setFont(new Font("Arial", Font.BOLD, 18));
+        // Create table
+        JTable table = new JTable(data, columns);
+        table.setBackground(new Color(40, 40, 40));
+        table.setForeground(Color.WHITE);
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.setRowHeight(30);
 
-        add(unlockButton);
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(new Color(60, 60, 60));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Arial", Font.BOLD, 16));
+        header.setPreferredSize(new Dimension(50, 35));
 
-        // Example: go back to FitnessGoalUI on click (you can change this)
-        unlockButton.addActionListener(e -> {
-            // Navigate to next page or perform action
-            JOptionPane.showMessageDialog(this, "Workout selected!");
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 40, 10, 40));
+        scrollPane.getViewport().setBackground(new Color(20, 20, 20));
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Buttons
+        JButton chooseBtn = new JButton("Choose a Workout");
+        chooseBtn.setFont(new Font("Arial", Font.BOLD, 20));
+        chooseBtn.setBackground(new Color(50, 50, 50));
+        chooseBtn.setForeground(Color.WHITE);
+        chooseBtn.setFocusPainted(false);
+        chooseBtn.setPreferredSize(new Dimension(240, 50));
+
+        // Example navigation to Cardio page (change as needed)
+        chooseBtn.addActionListener(e -> {
             nav.goToHomepage();
         });
-    }
 
-    private JPanel createWorkoutCard(String title, String subtitle, String imagePath) {
-        JPanel card = new JPanel();
-        card.setLayout(new BorderLayout());
-        card.setPreferredSize(new Dimension(320, 90));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 90));
-        card.setBackground(new Color(40, 40, 40));
-        card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JButton backBtn = new JButton("Back");
+        backBtn.setFont(new Font("Arial", Font.BOLD, 20));
+        backBtn.setBackground(new Color(100, 0, 0));
+        backBtn.setForeground(Color.WHITE);
+        backBtn.setFocusPainted(false);
+        backBtn.setPreferredSize(new Dimension(240, 50));
 
-        // Text panel
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        backBtn.addActionListener(e -> nav.goToHomepage());
 
-        JLabel subtitleLabel = new JLabel(subtitle);
-        subtitleLabel.setForeground(new Color(180, 180, 180));
-        subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+        // Bottom panel
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(new Color(20, 20, 20));
+        bottomPanel.setLayout(new GridLayout(2, 1, 0, 15));
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        bottomPanel.add(chooseBtn);
+        bottomPanel.add(backBtn);
 
-        JPanel textPanel = new JPanel();
-        textPanel.setBackground(new Color(40, 40, 40));
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        textPanel.add(titleLabel);
-        textPanel.add(subtitleLabel);
-
-        card.add(textPanel, BorderLayout.CENTER);
-
-        // Image panel
-        try {
-            ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-            Image scaled = icon.getImage().getScaledInstance(55, 55, Image.SCALE_SMOOTH);
-            JLabel imgLabel = new JLabel(new ImageIcon(scaled));
-            card.add(imgLabel, BorderLayout.EAST);
-        } catch (Exception e) {
-            System.out.println("Image not found: " + imagePath);
-        }
-
-        return card;
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 }

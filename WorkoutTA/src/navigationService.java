@@ -43,14 +43,14 @@ public class navigationService extends JFrame
         showPage(new BuildMuscle(this));
     }
 
-    public void goToEndurance()
+    public void goToCardio()
     {
-        showPage(new Endurance(this));
+        showPage(new Cardio(this));
     }
 
-    public void goToGainWeight()
+    public void goToBodyComp()
     {
-        showPage(new GainWeight(this));
+        showPage(new BodyComposition(this));
     }
 
     public void goToLoseWeight()
@@ -59,7 +59,7 @@ public class navigationService extends JFrame
     }
 
     public void goToRegisterPage() {
-        showPage(new RegisterPage(this));
+        showPage(new RegisterUI(this));
     }
 
     public void goToLoginPage() {
@@ -68,5 +68,13 @@ public class navigationService extends JFrame
 
     public void goToHomepage() {
         showPage(new HomePageDesign(this));
+    }
+
+    public void goToProfile() {
+        showPage(new ProfilePage(this));
+    }
+
+    public void goToCalculator(){
+        showPage(new Calcy(this));
     }
 }

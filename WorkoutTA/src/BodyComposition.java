@@ -2,38 +2,33 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 
-public class LoseWeight extends JPanel {
+public class BodyComposition extends JPanel {
 
     private navigationService nav;
 
-    public LoseWeight(navigationService nav) {
-        this.nav = nav;
+    public BodyComposition(navigationService nav) {
 
+        this.nav = nav;
         setLayout(new BorderLayout());
         setBackground(new Color(20, 20, 20));
 
-        // Title
-        JLabel title = new JLabel("Lose Weight Guide", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 36));
+        JLabel title = new JLabel("Body Composition Workouts", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 32));
         title.setForeground(Color.WHITE);
         title.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         add(title, BorderLayout.NORTH);
 
-        // Table columns
         String[] columns = { "Exercise", "Duration / Reps", "Estimated Calories Burned" };
 
         Object[][] data = {
-                {"Treadmill / Running", "30–40 min or 20–25 min HIIT", "300–450 kcal"},
-                {"Elliptical Trainer", "30–40 min moderate pace", "250–400 kcal"},
-                {"Rowing Machine", "20–30 min moderate–intense", "200–350 kcal"},
-                {"HIIT", "15–25 min (30s work / 30s rest)", "250–400 kcal"},
-                {"Cycling / Stationary Bike", "30–45 min moderate pace", "250–400 kcal"},
-                {"Jump Rope", "10–15 min intervals", "150–250 kcal"},
-                {"Circuit Training", "20–30 min full-body circuits", "250–400 kcal"},
-                {"Strength Training / Weightlifting", "45–60 min", "180–300 kcal"}
+                {"Hypertrophy Strength Training", "45–60 min", "180–300 kcal"},
+                {"Compound Lifts (Squats, Deadlifts, Bench, Rows)", "4 × 6–10 reps", "150–250 kcal"},
+                {"METCON (Metabolic Conditioning)", "15–25 min", "220–350 kcal"},
+                {"HIIT Strength + Cardio Mix", "15–20 min (40s/20s)", "200–350 kcal"},
+                {"Bodyweight Conditioning", "15–25 min", "180–300 kcal"},
+                {"Core Strength & Stability Training", "15–20 min", "80–150 kcal"}
         };
 
-        // Table
         JTable table = new JTable(data, columns);
         table.setBackground(new Color(40, 40, 40));
         table.setForeground(Color.WHITE);
@@ -51,7 +46,6 @@ public class LoseWeight extends JPanel {
         scrollPane.getViewport().setBackground(new Color(20, 20, 20));
         add(scrollPane, BorderLayout.CENTER);
 
-        // Buttons
         JButton chooseBtn = new JButton("Choose a Workout");
         chooseBtn.setFont(new Font("Arial", Font.BOLD, 20));
         chooseBtn.setBackground(new Color(50, 50, 50));
@@ -59,14 +53,11 @@ public class LoseWeight extends JPanel {
         chooseBtn.setFocusPainted(false);
         chooseBtn.setPreferredSize(new Dimension(240, 50));
 
-        // Example navigation (change to actual page)
-        chooseBtn.addActionListener(e -> {
-            nav.goToHomepage();
-        });
+        chooseBtn.addActionListener(e -> nav.goToHomepage());
 
         JButton backBtn = new JButton("Back");
         backBtn.setFont(new Font("Arial", Font.BOLD, 20));
-        backBtn.setBackground(new Color(100, 0, 0));
+        backBtn.setBackground(new Color(150, 0, 0));
         backBtn.setForeground(Color.WHITE);
         backBtn.setFocusPainted(false);
         backBtn.setPreferredSize(new Dimension(240, 50));
